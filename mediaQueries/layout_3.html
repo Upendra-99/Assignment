@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @media only screen and (max-width: 1980px) {
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .yellow {
+          background-color: yellow;
+          grid-area: yellow;
+          height: 70px;
+          width: 1200px;
+          margin-top: 30px;
+          box-sizing: border-box;
+          padding: 10px;
+          font-size: 50px;
+        }
+        .red {
+          background-color: red;
+          height: 460px;
+          width: 790px;
+          grid-area: red;
+          box-sizing: border-box;
+          padding: 20px;
+          font-size: 25px;
+          color: rgb(109, 106, 106);
+        }
+        .green {
+          background-color: lime;
+          height: 140px;
+          width: 390px;
+          box-sizing: border-box;
+          padding: 15px;
+          font-size: 25px;
+          color: gray;
+        }
+        #one {
+          grid-area: one;
+        }
+        #two {
+          grid-area: two;
+        }
+        #three {
+          grid-area: three;
+        }
+        .main {
+          display: grid;
+          justify-content: center;
+          gap: 20px;
+          grid-template-areas:
+            "yellow yellow"
+            "red one"
+            "red two"
+            "red three";
+        }
+      }
+      @media only screen and (max-width: 1187px) {
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .yellow {
+          background-color: yellow;
+          grid-area: yellow;
+          height: 70px;
+          width: 1100px;
+          margin-top: 30px;
+          box-sizing: border-box;
+          padding: 10px;
+          font-size: 50px;
+        }
+        .red {
+          background-color: red;
+          height: 300px;
+          width: 1100px;
+          grid-area: red;
+          box-sizing: border-box;
+          padding: 20px;
+          font-size: 25px;
+          color: rgb(109, 106, 106);
+        }
+        .green {
+          background-color: lime;
+          height: 140px;
+          width: 320px;
+          box-sizing: border-box;
+          padding: 15px;
+          font-size: 25px;
+          color: gray;
+        }
+        #one {
+          grid-area: one;
+        }
+        #two {
+          grid-area: two;
+          margin-left: 40px;
+        }
+        #three {
+          grid-area: three;
+          margin-left: 40px;
+        }
+        .main {
+          display: grid;
+          justify-content: center;
+          gap: 30px;
+          grid-template-areas:
+            "yellow yellow yellow"
+            "red red red"
+            "one two three";
+        }
+      }
+      @media only screen and (max-width: 432px) {
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .yellow {
+          background-color: yellow;
+          grid-area: yellow;
+          height: 100px;
+          width: 350px;
+          margin-top: 30px;
+          box-sizing: border-box;
+          padding: 10px;
+          font-size: 50px;
+        }
+        .red {
+          background-color: red;
+          height: 200px;
+          width: 350px;
+          grid-area: red;
+          box-sizing: border-box;
+          padding: 20px;
+          font-size: 25px;
+          color: rgb(109, 106, 106);
+        }
+        .green {
+          background-color: lime;
+          height: 100px;
+          width: 350px;
+          box-sizing: border-box;
+          padding: 15px;
+          font-size: 25px;
+          color: gray;
+        }
+        #one {
+          grid-area: one;
+        }
+        #two {
+          grid-area: two;
+          margin-left: 0px;
+        }
+        #three {
+          grid-area: three;
+          margin-left: 0px;
+        }
+        .main {
+          display: grid;
+          justify-content: center;
+          gap: 20px;
+          grid-template-areas:
+            "yellow"
+            "red"
+            "one"
+            "two"
+            "three";
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="yellow">Navigation</div>
+      <div class="red">LEFT BOX</div>
+      <div class="green" id="one">RIGHT BOX 1</div>
+      <div class="green" id="two">RIGHT BOX 2</div>
+      <div class="green" id="three">RIGHT BOX 3</div>
+    </div>
+  </body>
+</html>

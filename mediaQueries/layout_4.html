@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .main {
+        margin-top: 30px;
+      }
+      .yellow {
+        background-color: yellow;
+        box-sizing: border-box;
+        padding: 15px;
+      }
+      .red {
+        background-color: red;
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .green {
+        background-color: lime;
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .purple {
+        background-color: rgb(87, 99, 238);
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .gray {
+        background-color: rgb(152, 152, 152);
+        box-sizing: border-box;
+        padding: 20px;
+      }
+      .row2 {
+        color: rgb(71, 70, 70);
+      }
+      @media only screen and (max-width: 1253px) {
+        .main {
+          margin-left: 15px;
+          display: inline-block;
+        }
+
+        .row2 {
+          margin-top: 30px;
+          display: flex;
+          gap: 27px;
+          font-size: 20px;
+        }
+        .yellow {
+          width: 1200px;
+          height: 100px;
+          font-size: 60px;
+        }
+        .red {
+          font-size: larger;
+          width: 280px;
+          height: 280px;
+        }
+        .green {
+          width: 280px;
+          height: 280px;
+        }
+        .purple {
+          width: 280px;
+          height: 280px;
+        }
+        .gray {
+          width: 280px;
+          height: 280px;
+        }
+      }
+      @media only screen and (max-width: 659px) {
+        .main {
+          display: inline-block;
+        }
+        .row2 {
+          margin-top: -5px;
+          display: grid;
+          grid-template-areas:
+            "yellow yellow"
+            "red purple"
+            "green gray";
+        }
+        .yellow {
+          width: 600px;
+          height: 90px;
+          grid-area: yellow;
+        }
+        .red {
+          height: 240px;
+          width: 280px;
+          grid-area: red;
+        }
+        .green {
+          height: 240px;
+          width: 280px;
+          grid-area: green;
+        }
+        .purple {
+          height: 240px;
+          width: 280px;
+          grid-area: purple;
+        }
+        .gray {
+          height: 240px;
+          width: 280px;
+          grid-area: gray;
+        }
+      }
+      @media only screen and (max-width: 338px) {
+        .main {
+          display: inline-block;
+        }
+        .row2 {
+          display: inline-block;
+        }
+        .row2 > div {
+          margin-top: 20px;
+        }
+        .yellow {
+          font-size: 55px;
+          height: 100px;
+          width: 300px;
+        }
+
+        .red {
+          width: 300px;
+          height: 130px;
+        }
+        .green {
+          width: 300px;
+          height: 130px;
+        }
+        .purple {
+          width: 300px;
+          height: 130px;
+        }
+        .gray {
+          width: 300px;
+          height: 130px;
+        }
+      } ;
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div id="row1">
+        <div class="yellow">Navigation</div>
+      </div>
+      <div class="row2">
+        <div class="red">Box 1</div>
+        <div class="green">Box 2</div>
+        <div class="purple">Box 3</div>
+        <div class="gray">Box 4</div>
+      </div>
+    </div>
+  </body>
+</html>
