@@ -1,4 +1,5 @@
 var array = ['amit', 'anita', 'nitin', 'up', 'abc']
 
-var newarr = arr.reduce((prev, curr) => prev + "_" + curr);
+var newarr = array.reduce((prev, curr) => prev + "_" + curr);
+
 console.log(newarr);

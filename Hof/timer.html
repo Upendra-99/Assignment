@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        
+        #form {
+            margin: auto;
+            width: 60%;
+            margin-top: 80px;
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        input {
+            font-size: large;
+            width: 15%;
+            -moz-appearance: textfield;
+            text-align: center;
+            background-color: rgb(137, 245, 137);
+        }
+        
+        .display {
+            margin: auto;
+            width: 60%;
+            margin-top: 60px;
+            text-align: center;
+            display: grid;
+            justify-content: center;
+        }
+        
+        .controls {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        button {
+            width: 10%;
+            height: 40px;
+            font-size: 22px;
+            border-radius: 20px;
+            background-color: aquamarine;
+        }
+        
+        label {
+            font-size: medium;
+            font-family: sans-serif;
+        }
+        
+        .title {
+            margin: 20px;
+            text-align: center;
+            font-size: 50px;
+            font-family: sans-serif;
+            color: darkcyan;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="title">Digital-Timer</div>
+        <div class="form">
+            <form id="form">
+                <label>Hours: </label> <br>
+                <input type="number" class="hour" placeholder="hours" />
+                <label>Minutes: </label><br>
+                <input type="number" class="minute" placeholder="minutes" />
+                <label>Seconds: </label><br>
+                <input type="number" class="second" placeholder="seconds" />
+                <!-- <input type="submit" class="start" /> -->
+            </form>
+        </div>
+        <div class="display">
+            <h2>Hours : Minutes : Seconds</h2>
+            <h1 id="counter">00 : 00 : 00</h1>
+        </div>
+        <div class="controls">
+            <button class="start">Start</button>
+            <button class="pause">Pause</button>
+            <button class="reset">Reset</button>
+        </div>
+
+    </div>
+</body>
+<script>
+    var start = document.querySelector(".start");
+    var pause = document.querySelector(".pause");
+    var reset = document.querySelector(".reset");
+
+    start.addEventListener("click", startTimer);
+    pause.addEventListener("click", pauseTimer);
+    reset.addEventListener("click", resetTime);
+
+    var time;
+    var intervalReference;
+
+    function startTimer() {
+        var hours = document.querySelector(".hour").value;
+        var minutes = document.querySelector(".minute").value;
+        var seconds = document.querySelector(".second").value;
+        var time =
+            Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
+        if (intervalReference || time <= 0) {
+            return;
+        }
+
+        intervalReference = setInterval(() => {
+            time--;
+            displayTime(time);
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(intervalReference);
+
+        intervalReference = null;
+    }
+
+    function resetTime() {
+        clearInterval(intervalReference);
+        time = 0;
+        displayTime(time);
+        intervalReference = null;
+    }
+
+    function displayTime(seconds) {
+        if (seconds === 0) {
+            pauseTimer();
+        }
+        var sec1 = seconds % 60;
+        var min1 = Math.floor(seconds / 60) % 60;
+        var hour1 = Math.floor(seconds / 3600);
+        document.querySelector(".hour").value = hour1;
+        document.querySelector(".minute").value = min1;
+        document.querySelector(".second").value = sec1;
+        var displayValue = `${formatToTwoDigit(hour1)} : ${formatToTwoDigit(min1)} : ${formatToTwoDigit(sec1)}`;
+        counter.innerText = displayValue;
+    }
+
+    function formatToTwoDigit(time) {
+        if (time < 10) {
+            return `0${time}`;
+        }
+        return time;
+    }
+</script>
+
+</html>

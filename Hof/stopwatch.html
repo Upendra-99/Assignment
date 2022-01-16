@@ -1,67 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Stopwatch</title>
-    <style></style>
-  </head>
-  <body>
-    <div class="main">
-      <div class="time">
-        <h1 id="counter">00 : 00 : 00 : 00</h1>
-      </div>
-      <div class="controls">
-        <button class="start">Start</button>
-        <button class="pause">Pause</button>
-        <button class="reset">Reset</button>
-      </div>
+    <style>
+        body {
+            height: 100vh;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        
+        .container {
+            height: 30vh;
+            width: auto;
+            text-align: center;
+            color: white;
+        }
+        
+        .display {
+            padding: 1px 5px;
+            border-radius: 5px;
+        }
+        
+        .controls button {
+            box-shadow: 2px 4px;
+            margin: 4px;
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="display">
+            <h1 style="color:darkturquoise">Stop-Watch</h1>
+            <h1 id="counter">00 : 00 : 00 : 00</h1>
+        </div>
+        <div class="controls">
+            <button class="start">Start</button>
+            <button class="pause">Pause</button>
+            <button class="reset">Reset</button>
+        </div>
     </div>
-  </body>
-  <script>
+</body>
+<script>
     var start = document.querySelector(".start");
     var pause = document.querySelector(".pause");
     var reset = document.querySelector(".reset");
-    var intervalReference = null;
-    var timer = 0;
-    function startTimer() {
-      if (intervalReference) {
-        return;
-      }
-      intervalReference = setInterval(() => {
-        timer += 1;
-        displayTime(timer);
-      }, 1000);
-    }
-    function pauseTimer() {
-      clearInterval(intervalReference);
-      intervalReference = null;
-    }
-    function resetTime() {
-      clearInterval(intervalReference);
-      timer = 0;
-      displayTime(timer);
-      intervalReference = null;
-    }
-    function displayTime(seconds) {
-      var sec = seconds % 60;
-      var min = Math.floor(seconds / 60) % 60;
-      var hour = Math.floor(seconds / 3600) % 24;
-      var days = Math.floor(seconds / (3600 * 24));
-      var displayValue = `${formatToTwoDigit(days)} : ${formatToTwoDigit(
-        hour
-      )} : ${formatToTwoDigit(min)} : ${formatToTwoDigit(sec)}`;
-      counter.innerText = displayValue;
-    }
-    function formatToTwoDigit(time) {
-      if (time < 10) {
-        return `0${time}`;
-      }
-      return time;
-    }
+
     start.addEventListener("click", startTimer);
     pause.addEventListener("click", pauseTimer);
     reset.addEventListener("click", resetTime);
-  </script>
+
+    var timer = 0;
+    var intervalReference = null;
+
+    function startTimer() {
+        if (intervalReference) {
+            return;
+        }
+
+        intervalReference = setInterval(() => {
+            timer += 1;
+            displayTime(timer);
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        clearInterval(intervalReference);
+        intervalReference = null;
+    }
+
+    function resetTime() {
+        clearInterval(intervalReference);
+        timer = 0;
+        intervalReference = null;
+        displayTime(timer);
+    }
+
+    function displayTime(seconds) {
+        var sec = seconds % 60;
+        var min = Math.floor(seconds / 60) % 60;
+        var hour = Math.floor(seconds / 3600) % 24;
+        var days = Math.floor(seconds / (3600 * 24));
+        var displayValue = `${twoDigitFormat(days)} : ${twoDigitFormat(hour)} : ${twoDigitFormat(min)} : ${twoDigitFormat(sec)}`;
+        counter.innerText = displayValue;
+    }
+
+    function twoDigitFormat(time) {
+        if (time < 10) {
+            return `0${time}`;
+        }
+        return time;
+    }
+</script>
+
 </html>
