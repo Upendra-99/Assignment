@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+
+    <style>
+        body {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        table {
+            margin: auto;
+        }
+        
+        #table {
+            border: 2px solid black;
+            background-color: aquamarine;
+        }
+        
+        td {
+            border: 2px solid black;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <form>
+
+        Employee Name:-
+
+        <input id="name" type="text" placeholder=" Employee name" /> Department:-
+
+        <select id="dep" name="department"> 
+
+        <option value="">department</option>
+
+        <option value="purchase">Sales</option>
+
+        <option value="sale">Curing Unit</option>
+
+        <option value="field">Manufacturing</option>
+
+        <option value="Hr">Labour</option>
+
+      </select> Sale year 1:-
+
+        <input id="sale1" type="number" placeholder="Sale year 1" /> Sale year 2:-
+
+        <input id="sale2" type="number" placeholder="Sale year 2" /> <br>
+
+        <input style="width: 30%; height: 30px; background-color: darkcyan; margin-top: 20px;" id="submit" type="submit" value="Submit" />
+
+    </form>
+
+    <br />
+    <br />
+
+
+    <button id="asc">Ascending</button>
+
+    <button id="dec">Descending</button>
+
+    <br /><br />
+
+    <table id="table">
+
+        <thead>
+
+            <tr>
+
+                <td>Employee Name</td>
+
+                <td>Department</td>
+
+                <td>Sale year 1</td>
+
+                <td>Sale year 2</td>
+
+                <td>Average sale</td>
+
+            </tr>
+
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+
+</body>
+
+</html>
+
+<script>
+    var emp_array = [];
+
+    var tbody = document.querySelector("tbody");
+
+    document.querySelector("form").addEventListener("submit", submitHandler);
+
+    function submitHandler(event) {
+
+        event.preventDefault();
+
+        var employename = document.querySelector("#name").value;
+
+        var department = document.querySelector("#dep").value;
+
+        var saleyear1 = document.querySelector("#sale1").value;
+
+        var saleyear2 = document.querySelector("#sale2").value;
+
+        var Averagesale = (Number(saleyear1) + Number(saleyear2)) / 2;
+
+        var employeeObject = {
+
+            name: employename,
+
+            dep: department,
+
+            sale1: saleyear1,
+
+            sale2: saleyear2,
+
+            avg: Averagesale,
+
+        };
+
+        emp_array.push(employeeObject);
+
+        showArray(emp_array);
+
+    }
+
+    function showArray(arr) {
+
+        tbody.innerHTML = "";
+
+        for (var i = 0; i < arr.length; i++) {
+
+            printEmployee(arr[i]);
+
+        }
+
+    }
+
+    function printEmployee(details) {
+
+
+        var tr = document.createElement("tr");
+
+        var td1 = document.createElement("td");
+
+        td1.textContent = details.name;
+
+        var td2 = document.createElement("td");
+
+        td2.textContent = details.dep;
+
+        var td3 = document.createElement("td");
+
+        td3.textContent = details.sale1;
+
+        var td4 = document.createElement("td");
+
+        td4.textContent = details.sale2;
+
+        var td5 = document.createElement("td");
+
+        td5.textContent = details.avg;
+
+        tr.append(td1, td2, td3, td4, td5);
+
+        tbody.append(tr);
+
+    }
+
+    document.getElementById("asc").addEventListener("click", ascen);
+
+    document.getElementById("dec").addEventListener("click", desce);
+
+    function ascen() {
+
+        emp_array.sort((a, b) => a.avg - b.avg);
+
+        showArray(emp_array);
+
+    }
+
+    function desce() {
+
+        emp_array.sort((a, b) => b.avg - a.avg);
+
+        showArray(emp_array);
+
+    }
+</script>
