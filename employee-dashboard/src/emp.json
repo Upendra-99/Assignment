@@ -1,0 +1,36 @@
+{
+  "employees": [
+    {
+      "name": "Upendra1",
+      "department": "HR",
+      "gender": "Male",
+      "role": "dev",
+      "salary": "20000",
+      "id": 1
+    },
+    {
+      "name": "Upendra2",
+      "department": "Marketing",
+      "gender": "Male",
+      "role": "dev",
+      "salary": "29000",
+      "id": 2
+    },
+    {
+      "name": "Upendra3",
+      "department": "Finance",
+      "gender": "Male",
+      "role": "dev",
+      "salary": "26000",
+      "id": 3
+    },
+    {
+      "name": "Upendra4",
+      "department": "IT",
+      "gender": "Male",
+      "role": "dev",
+      "salary": "23000",
+      "id": 4
+    }
+  ]
+}

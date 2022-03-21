@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do Assignment</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .main-container {
+        margin: auto;
+    }
+    
+    .container {
+        margin: auto;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* background-color: aqua; */
+    }
+    /* form {
+        background-color: aquamarine;
+    } */
+    
+    .main {
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .left {
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    .right {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #item {
+        margin: 0px;
+        padding: 0px;
+        height: 40%;
+        width: 200px;
+        text-align: center;
+        font-size: larger;
+        border-radius: 5px;
+        border: 2px solid black;
+    }
+    
+    #submit {
+        margin-top: 10px;
+        height: 100%;
+        width: 120px;
+        font-size: xx-large;
+        border-radius: 5px;
+        border: 2px solid black;
+    }
+    
+    #display {
+        width: 260px;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    #display div {
+        padding: 0px 5px;
+        border: 2px solid black;
+        margin: 10px 0px;
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
+    #display div :first-child {
+        width: 80%;
+    }
+    
+    #display p {
+        font-size: 26px;
+    }
+    
+    #display a {
+        text-decoration: none;
+        border: 1px solid black
+    }
+</style>
+
+<body>
+    <div class="main-container">
+
+        <div class="container" onsubmit="return saveData(this);">
+            <form class="form">
+                <div class="main">
+                    <div class="left">
+                        <input type="text" id="item" placeholder="Item" name="item" required>
+                        <div class="sub_btn">
+                            <input type="submit" id="submit" value="ADD">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="count_div">
+                <h1>Total Tasks : <span id="count"></span></h1>
+            </div>
+        </div>
+
+        <div id="display"> </div>
+
+    </div>
+
+</body>
+
+<script>
+    var url = "http://localhost:3000/todo";
+
+    //getting data from API using fetch method;
+    fetch(url).then(function(res) {
+            return res.json();
+        }).then(function(final_res) {
+            //sending fianl data to appendTodoList function;
+            appendTodoList(final_res)
+                // console.log(final_res)
+        })
+        .catch(function(error_in_fetch) {
+            console.log("err", error_in_fetch)
+        })
+
+    //fetched refrence to show all tasks;
+    var show = document.getElementById('display');
+
+    //fetched refrence to add task count;
+    var count_span = document.getElementById('count');
+    var count = 0; // to be counted inside foreach loop;
+
+
+    //displaying data on window;   
+    function appendTodoList(data) {
+        // data = data.data;
+        data.forEach(function(element) {
+            count++;
+            count_span.innerText = count;
+
+            //if title is available in each dataObject;
+            const div = document.createElement('div');
+            const title = document.createElement('p');
+
+            if (element.title) {
+
+                if (element.status)
+                    title.style.color = 'green';
+                else
+                    title.style.color = 'black';
+            }
+
+            let done_btn = `<a class="done_btn" onclick="done(${element.id}, ${element.status})" href="#"> Toggle </a>`;
+            let remove_btn = `<a class="remove_btn" onclick="remove(${element.id})" href="#"> Remove </a>`;
+
+
+            title.innerText = element.title;
+            div.appendChild(title);
+            div.innerHTML += done_btn;
+            div.innerHTML += remove_btn;
+
+            show.append(div)
+
+        })
+    }
+
+    // done function
+    function done(id, status) {
+        let url = `http://localhost:3000/todo/${id}`;
+
+        tick()
+
+        function tick() {
+
+            //adding reference to all input tags;
+            var inputs = document.querySelectorAll("input");
+
+            fetch(url, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "status": status ? false : true,
+                    })
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(final_res) {})
+                .catch(function(err) {
+                    console.log("err", err)
+                })
+
+            location.reload();
+        }
+
+    }
+    // remove function
+    function remove(id) {
+
+        let url = `http://localhost:3000/todo/${id}`;
+
+        remove();
+
+        function remove() {
+
+            fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(function(res) {
+                    return res.json();
+                }).then(function(final_res) {})
+                .catch(function(err) {
+                    console.log("err", err)
+                })
+
+            location.reload();
+        }
+
+    }
+
+
+
+    // sending data using fetch method;
+    function saveData(form) {
+
+        //adding reference to all input tags;
+        var inputs = form.querySelectorAll("input");
+        console.log(inputs)
+
+        fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "title": inputs[0].value,
+                    "status": false
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(final_res) {
+                appendTodoList([final_res])
+            })
+            .catch(function(err) {
+                console.log("err", err)
+            })
+
+        inputs[0].value = '';
+        return false;
+    }
+</script>
+
+</html>
